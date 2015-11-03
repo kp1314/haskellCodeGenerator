@@ -33,4 +33,4 @@ Haskell data type for 68000 instruction set
 > data Register = D0 | D1 | D2 | D3 | D5 | D5 | D6 | D7 | A7
 >      deriving (Eq, Show)
 
-> freeRegs = [D1,D2,D3,D4,D5,D6,D7]
+> initialFreeRegs = [D1,D2,D3,D4,D5,D6,D7]
