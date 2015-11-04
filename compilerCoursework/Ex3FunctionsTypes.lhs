@@ -30,8 +30,9 @@ Haskell data type for 68000 instruction set
 >   show (Reg r) = show r 
 >   show (ImmNum i) = "$" ++ show i 
 
-> data Register = D0 | D1 | D2 | D3 | D5 | D5 | D6 | D7 | A7
+> data Register = D0 | D1 | D2 | D3 | D4 | D5 | D6 | D7 | A7
 >      deriving (Eq, Show)
 
+> paramReg        = D0
 > initialFreeRegs = [D1,D2,D3,D4,D5,D6,D7]
 > 
