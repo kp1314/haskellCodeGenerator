@@ -34,3 +34,4 @@ Haskell data type for 68000 instruction set
 >      deriving (Eq, Show)
 
 > initialFreeRegs = [D1,D2,D3,D4,D5,D6,D7]
+> 
