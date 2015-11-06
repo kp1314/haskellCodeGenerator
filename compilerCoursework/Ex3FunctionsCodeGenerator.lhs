@@ -12,7 +12,7 @@ Part (1): translate the function declaration
 
 > translateFunction (Defun funName paramName funBody)
 >   = [Define funName] ++ (transExp funBody initialFreeRegs) ++ 
->    [Ret] 
+>     [Ret] 
 
 Part (2): saving the registers before function is called.
 
