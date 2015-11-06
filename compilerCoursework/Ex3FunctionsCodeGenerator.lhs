@@ -25,17 +25,16 @@ Part (3): translate the expresions
 > transExp :: Exp -> [Register] -> [Instr]
 > transExp (Const i) (dest:rest) 
 >   = [(Mov (ImmNum i)(Reg dest))]
-> transExp (Var s) (dest:rest) 
->   = [(Mov (Reg D0) (Reg dest))]
+> transExp (Var s) (dest:r:rest) 
+>   = [(Mov (Reg dest) (Reg r))]
 > transExp (Minus e1 e2) (dest:r:rest)
 >   |(weight e1) > (weight e2) = (transExp e1 (dest:r:rest)) ++ 
 >     (transExp e2 (r:rest)) ++ [(Sub (Reg r) (Reg dest))]
 >   |otherwise                 = (transExp e2 (r:dest:rest)) ++ 
 >     (transExp e1 (dest:rest)) ++ [(Sub (Reg r) (Reg dest))]
-> transExp (Apply s e) (paramReg:r:rest) 
->   = (saveRegisters (r:rest)) ++ (transExp e (r:rest)) ++
->     [(Mov (Reg r) (Reg paramReg))] ++ [Jsr s] ++ 
->       (restoreRegisters (r:rest)) 
+> transExp (Apply s e) (r:preg:rest) 
+>   = (saveRegisters (r:rest)) ++ (transExp e (preg:r:rest)) ++ [Jsr s] 
+>       ++ (restoreRegisters (r:rest)) 
 
 > weight :: Exp -> Int
 > weight (Const n) = 1
