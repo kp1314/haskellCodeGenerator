@@ -32,10 +32,10 @@ Part (3): translate the expresions
 >     (transExp e2 (r:rest)) ++ [(Sub (Reg r) (Reg dest))]
 >   |otherwise                 = (transExp e2 (r:dest:rest)) ++ 
 >     (transExp e1 (dest:rest)) ++ [(Sub (Reg r) (Reg dest))]
-> transExp (Apply s e) (dest:rest) 
->   = (saveRegisters rest) ++ (transExp e (dest:rest)) ++
->     [(Mov (Reg dest) (Reg paramReg))] ++[Jsr s] ++ 
->       (restoreRegisters rest) 
+> transExp (Apply s e) (dest:r:rest) 
+>   = (saveRegisters (r:rest)) ++ (transExp e (r:rest)) ++
+>     [(Mov (Reg r) (Reg dest))] ++ [Jsr s] ++ 
+>       (restoreRegisters (r:rest)) 
 
 > weight :: Exp -> Int
 > weight (Const n) = 1
