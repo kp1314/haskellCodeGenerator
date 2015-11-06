@@ -11,7 +11,7 @@ Kiran Patel (kp1314)
 Part (1): translate the function declaration
 
 > translateFunction (Defun funName paramName funBody)
->   = [Define funName] ++ (transExp funBody initialFreeRegs) ++ 
+>   = [Define funName] ++ (transExp funBody (funcDestReg:(initialFreeRegs\\[D1]))) ++ 
 >     [Ret] 
 
 Part (2): saving the registers before function is called.
@@ -32,9 +32,9 @@ Part (3): translate the expresions
 >     (transExp e2 (r:rest)) ++ [(Sub (Reg r) (Reg dest))]
 >   |otherwise                 = (transExp e2 (r:dest:rest)) ++ 
 >     (transExp e1 (dest:rest)) ++ [(Sub (Reg r) (Reg dest))]
-> transExp (Apply s e) (dest:r:rest) 
+> transExp (Apply s e) (paramReg:r:rest) 
 >   = (saveRegisters (r:rest)) ++ (transExp e (r:rest)) ++
->     [(Mov (Reg r) (Reg dest))] ++ [Jsr s] ++ 
+>     [(Mov (Reg r) (Reg paramReg))] ++ [Jsr s] ++ 
 >       (restoreRegisters (r:rest)) 
 
 > weight :: Exp -> Int

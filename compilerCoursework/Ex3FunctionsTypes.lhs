@@ -34,4 +34,5 @@ Haskell data type for 68000 instruction set
 >      deriving (Eq, Show)
 
 > paramReg        = D0
-> initialFreeRegs = [D1,D0,D2,D3,D4,D5,D6,D7] 
+> funcDestReg     = D1
+> initialFreeRegs = [D0,D1,D2,D3,D4,D5,D6,D7] 
