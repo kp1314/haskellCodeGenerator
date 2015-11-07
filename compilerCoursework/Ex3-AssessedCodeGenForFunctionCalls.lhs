@@ -11,7 +11,7 @@ Kiran Patel (kp1314)
 Part (1): translate the function declaration
 
 > translateFunction (Defun funName paramName funBody)
->   = optimise([Define funName] ++ (transExp funBody (funcDestReg:initialFreeRegs)) ++ 
+>   = optimise([Define funName] ++ (transExp funBody ((allRegs\\[paramReg]))) ++ 
 >       [Ret])
 
 Part (2): saving the registers before function is called.
@@ -26,7 +26,7 @@ Part (3): translate the expressions
 > transExp (Const i) (dest:rest) 
 >   = [(Mov (ImmNum i)(Reg dest))]
 > transExp (Var s) (rest) 
->   = [(Mov (Reg paramReg) (Reg funcDestReg))]
+>   = [(Mov (Reg paramReg) (Reg resultReg))]
 > transExp (Minus e1 e2) (dest:r:rest)
 >   |(weight e1) > (weight e2) 
 >     = (transExp e1 (dest:r:rest)) ++ (transExp e2 
@@ -36,9 +36,9 @@ Part (3): translate the expressions
 >         (dest:rest)) ++ [(Sub (Reg r) (Reg dest))]
 > transExp (Apply s e) (dest:rest) 
 >   = (saveRegisters (dest:rest)) ++ (transExp e 
->       (rest)) ++ [Mov (Reg funcDestReg) (Reg 
+>       (rest)) ++ [Mov (Reg resultReg) (Reg 
 >         paramReg)] ++ [Jsr s] ++ [Mov (Reg 
->           funcDestReg) (Reg dest)] ++ 
+>           resultReg) (Reg dest)] ++ 
 >            (restoreRegisters (dest:rest)) 
 
 Finding the weight of a tree

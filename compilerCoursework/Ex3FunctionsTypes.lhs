@@ -33,7 +33,6 @@ Haskell data type for 68000 instruction set
 > data Register = D0 | D1 | D2 | D3 | D4 | D5 | D6 | D7 | A7
 >      deriving (Eq, Show)
 
-> paramReg        = D0
-> funcDestReg     = D1
-> initialFreeRegs = [D2,D3,D4,D5,D6,D7]
-> allRegs         = [D0,D1,D2,D3,D4,D5,D6,D7] 
+> paramReg  = D0
+> resultReg = D1
+> allRegs   = [D0,D1,D2,D3,D4,D5,D6,D7]
